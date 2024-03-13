@@ -10,7 +10,7 @@ public class Main {
         // 회원가입을 한다.
 
         // 로또를 구매
-        Purchase p = Purchase.getInstance();
+        purchase p = purchase.getInstance();
         // 로또 구매 여부를 묻고 로또를 구매한다.
         p.purchaseQuestion();
 
@@ -29,7 +29,6 @@ public class Main {
 
         // 당첨 결과를 출력한다.
         ROTTORI.result();
-
     }
 
 }

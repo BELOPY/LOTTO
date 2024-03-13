@@ -1,4 +1,5 @@
 package rotto;
+
 import java.util.Calendar;
 import java.util.Scanner;
 
@@ -23,7 +24,6 @@ public class Membership {
     String personalYY;    // 태어난 년도
     String personalMM;    // 태어난 월
     String personalDD;    // 태어난 일
-    String email;        // 이메일
     String address;        // 주소
     String pw;            // 카드 비밀번호
 
@@ -45,13 +45,102 @@ public class Membership {
         for(;;) {
             System.out.println("\n입력 :");
             answer = sc.next();
-
-            if(answer.equals("2") || answer.equals("아니요")){
-                System.out.println("\n [ERROR]회원이 아니라면 로또를 구입하실수 없습니다");
-                System.exit(0);
-            }else {
-                System.out.println("\n [ERROR]잘못된 입력입니다. 다시입력해주세요");
+            if(answer.equals("1") || answer.equals("예")) {
+                personalData();
+                break;
+            } else if(answer.equals("2") || answer.equals("아니요")) {
+                System.out.println("\n [ERROR] 회원이 아니라면 로또를 구입하실수 없습니다");
+                return; // 프로그램 종료가 아니라 메서드 종료로 변경
+            } else {
+                System.out.println("\n [ERROR] 잘못된 입력입니다. 다시입력해주세요");
             }
         }
-        }
     }
+
+    public void personalData() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("\n=================================================================\n");
+        System.out.println("[INFO] 회원가입을 위해 아래의 양식을 채워주세요.\n");
+
+        System.out.print("* 이름 : ");
+        this.name = sc.next();
+
+
+        // 미성년자는 가입할 수 없다.
+        // 생년월일은 조건에 맞지 않으면 다시 입력을 해야된다.
+        int personalYYnum = 0;
+        int personalMMnum = 0;
+        int personalDDnum = 0;
+
+        // 입력하는 연도가 올해를 넘기지 않게 만든다.
+        Calendar cal = Calendar.getInstance();
+        int yy = cal.get(Calendar.YEAR);
+
+        for(;;) {
+
+            System.out.print("* 태어난 연도 : ");
+            this.personalYY = sc.next();
+
+            personalYYnum = Integer.parseInt(personalYY);
+
+
+            if( personalYYnum == yy || personalYYnum > yy - 20 && personalYYnum < yy) {
+                System.out.println("[ERROR] 미성년자는 로또를 구매할 수 없습니다."
+                        + "\n회원가입이 종료됩니다.");
+                return; // 프로그램 종료가 아니라 메서드 종료로 변경
+            }else if( personalYYnum < 1900 || personalYYnum > yy) {
+                System.out.println("[ERROR] 잘못된 입력입니다."
+                        + "\n태어난 연도를 다시 입력해주세요.\n");
+            }else {
+                break;
+            }
+        }
+
+        for(;;) {
+
+            System.out.print("* 태어난 월 : ");
+            this.personalMM = sc.next();
+
+            personalMMnum = Integer.parseInt(personalMM);
+
+            if( personalMMnum == 0 || personalMMnum > 12) {
+                System.out.println("[ERROR] 잘못된 입력입니다."
+                        + "\n태어난 월을 다시 입력해주세요.\n");
+            }else {
+                break;
+            }
+        }
+
+        // 입력한 월에 따른 일의 변화
+        cal.set(Calendar.MONTH, personalMMnum - 1); // 월은 0부터 시작하기 때문에 1을 빼줌
+        int day_count = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+        for(;;) {
+
+            System.out.print("* 태어난 일 : ");
+            this.personalDD = sc.next();
+
+            personalDDnum = Integer.parseInt(personalDD);
+
+            if(personalDDnum == 0 || personalDDnum > day_count) { // day_count만으로 비교
+                System.out.println("[ERROR] 잘못된 입력입니다."
+                        + "\n태어난 일을 다시 입력해주세요.\n");
+            }else {
+                break;
+            }
+
+        }
+
+        System.out.print("* 주소 : ");
+        this.address = sc.next();
+
+        System.out.print("* 결제 비밀번호 : ");
+        sc.nextLine(); // next() 오류 방지
+        this.pw = sc.next();
+
+        System.out.println("\n[INFO] 회원가입이 완료되었습니다.");
+
+        System.out.println("\n=================================================================");
+
+    }
+}
