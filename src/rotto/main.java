@@ -1,6 +1,6 @@
 package rotto;
 
-public class Main {
+public class main {
 
     public static void main(String[] args) {
 
@@ -28,7 +28,7 @@ public class Main {
         ROTTORI.lottorynum();
 
         // 당첨 결과를 출력한다.
-        ROTTORI.result();
+        lt.result();
     }
 
 }

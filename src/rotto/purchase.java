@@ -14,7 +14,7 @@ public class purchase {
     }
     private purchase(){}
 
-    String customernum = "";
+    String customeNum = "";
 
     public void purchaseQuestion(){
         Membership m = Membership.getInstance();
@@ -120,7 +120,7 @@ public class purchase {
         }
 
 
-        this.customernum= num1 + num2 + num3 + num4 + num5 + num6;
+        this.customeNum= num1 + num2 + num3 + num4 + num5 + num6;
 
         System.out.print("\n[INFO] 입력하신 번호는" + "[" + num1 + "]" + "[" + num2 + "]" + "[" + num3 + "]"
                 + "[" + num4 + "]" + "[" + num5 + "]" + "[" + num6 + "]" + "입니다.");

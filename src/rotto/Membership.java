@@ -4,57 +4,61 @@ import java.util.Calendar;
 import java.util.Scanner;
 
 public class Membership {
+    // 싱글톤 객체 생성
     private static Membership m;
-
     public static Membership getInstance() {
-        if (m == null) {
+        if( m == null ) {
             m = new Membership();
         }
         return m;
     }
-
     public static void freeInstance() {
         m = null;
     }
+    private Membership() {}
 
-    private Membership() {
-    }
-
-    String name;        // 이름
-    String personalYY;    // 태어난 년도
-    String personalMM;    // 태어난 월
-    String personalDD;    // 태어난 일
-    String address;        // 주소
-    String pw;            // 카드 비밀번호
+    String name;		// 이름
+    String personalYY;	// 태어난 년도
+    String personalMM;	// 태어난 월
+    String personalDD;	// 태어난 일
+    String email;		// 이메일
+    String address;		// 주소
+    String pw;			// 카드 비밀번호
 
     // 회원가입 양식
     public void membershipGuide() {
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("\n ##        ####    ######   ######   ######   #####    ##  ## \r\n"
-                + " ##       ##  ##     ##       ##     ##       ##  ##   ##  ##  \r\n"
-                + " ##       ##  ##     ##       ##     #####    #####    ###### \r\n"
-                + " ##       ##  ##     ##       ##     ##       ## ##      ##    \r\n"
-                + " ######    ####      ##       ##     ######   ##  ##     ##");
-        System.out.println("\n[INFO] 안녕하세요. 로또입니다.\n"
+        System.out.println(
+                " \n\n ##        ####    ######   ######   ######   #####    ##  ##  \r\n"
+                        + " ##       ##  ##     ##       ##     ##       ##  ##   ##  ##  \r\n"
+                        + " ##       ##  ##     ##       ##     #####    #####    ###### \r\n"
+                        + " ##       ##  ##     ##       ##     ##       ## ##      ##    \r\n"
+                        + " ######    ####      ##       ##     ######   ##  ##     ##");
+
+        System.out.println("\n[INFO] 안녕하세요. 동행로또입니다.\n"
                 + "로또 구입을 위해선 회원가입이 필요합니다.\n"
                 + "회원가입을 진행하시겠습니까?\n"
                 + "[1] 예\t[2] 아니요");
+
         String answer = "";
 
         for(;;) {
-            System.out.println("\n입력 :");
+            System.out.print("\n입력 : ");
             answer = sc.next();
+
             if(answer.equals("1") || answer.equals("예")) {
                 personalData();
                 break;
-            } else if(answer.equals("2") || answer.equals("아니요")) {
-                System.out.println("\n [ERROR] 회원이 아니라면 로또를 구입하실수 없습니다");
-                return; // 프로그램 종료가 아니라 메서드 종료로 변경
-            } else {
-                System.out.println("\n [ERROR] 잘못된 입력입니다. 다시입력해주세요");
+            }else if(answer.equals("2") || answer.equals("아니요")){
+                System.out.println("\n[ERROR] 회원이 아니면 로또를 구매할 수 없습니다.");
+                System.exit(0);
+            }else {
+                System.out.println("\n[ERROR] 잘못된 입력입니다. 다시 입력해주세요.");
             }
+
         }
+
     }
 
     public void personalData() {
@@ -87,13 +91,15 @@ public class Membership {
             if( personalYYnum == yy || personalYYnum > yy - 20 && personalYYnum < yy) {
                 System.out.println("[ERROR] 미성년자는 로또를 구매할 수 없습니다."
                         + "\n회원가입이 종료됩니다.");
-                return; // 프로그램 종료가 아니라 메서드 종료로 변경
+                System.exit(0);
             }else if( personalYYnum < 1900 || personalYYnum > yy) {
                 System.out.println("[ERROR] 잘못된 입력입니다."
                         + "\n태어난 연도를 다시 입력해주세요.\n");
             }else {
                 break;
             }
+
+
         }
 
         for(;;) {
@@ -112,7 +118,8 @@ public class Membership {
         }
 
         // 입력한 월에 따른 일의 변화
-        cal.set(Calendar.MONTH, personalMMnum - 1); // 월은 0부터 시작하기 때문에 1을 빼줌
+        dataprinter.printdatetime(cal);
+        cal.set(Calendar.DAY_OF_MONTH, personalMMnum);
         int day_count = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 
         for(;;) {
@@ -122,7 +129,7 @@ public class Membership {
 
             personalDDnum = Integer.parseInt(personalDD);
 
-            if(personalDDnum == 0 || personalDDnum > day_count) { // day_count만으로 비교
+            if(personalDDnum == 0 || personalDDnum > day_count + 1) {
                 System.out.println("[ERROR] 잘못된 입력입니다."
                         + "\n태어난 일을 다시 입력해주세요.\n");
             }else {

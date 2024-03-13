@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ROTTO.iml" filepath="$PROJECT_DIR$/ROTTO.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rotto.iml" filepath="$PROJECT_DIR$/rotto.iml" />
     </modules>
   </component>
 </project>
