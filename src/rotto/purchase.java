@@ -1,8 +1,12 @@
 package rotto;
 import java.util.Scanner;
+import rotto.Membership;
+
+import javax.xml.namespace.QName;
 
 public class purchase {
     private static purchase p;
+    private Membership m;
     public static purchase getInstance() {
         if (p == null) {
             p = new purchase();
@@ -12,10 +16,8 @@ public class purchase {
     public static void freeInstance(){
         p = null;
     }
-    private purchase(){}
 
     String customeNum = "";
-
     public void purchaseQuestion(){
         Membership m = Membership.getInstance();
 
@@ -26,18 +28,20 @@ public class purchase {
                 + "\n[1] 예 \t [2] 아니요");
 
         String answer = "";
-
         for(;;) {
             System.out.print("\n입력 : ");
             answer = sc.next();
 
+            boolean purchaseCompleted = false;
             if(answer.equals("1") || answer.equals("예")) {
                 letsLottery();
                 System.out.println("\n=================================================================");
+                purchaseCompleted = true;
                 break;
             }else if(answer.equals("2") || answer.equals("아니요")){
                 System.out.println("\n[ERROR] 로또 구매가 종료되었습니다.");
-                System.exit(0);
+                System.out.println("[INFO] 메인 메뉴로 돌아갑니다.");
+                m.membershipGuide();
             }else {
                 System.out.println("\n[ERROR] 잘못된 입력입니다. 다시 입력해주세요.");
             }
