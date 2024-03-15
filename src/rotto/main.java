@@ -31,6 +31,9 @@ public class main {
 
             // 당첨 결과를 출력한다.
             lt.result();
+            // 당첨되었다면 당첨 수령하기(구현중)
+            Winning w = Winning.getInstance();
+            w.Winning();
         }
     }
 
