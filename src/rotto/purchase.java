@@ -1,11 +1,13 @@
 package rotto;
 import java.util.Scanner;
-import rotto.Membership;
 
 import javax.xml.namespace.QName;
 
 public class purchase {
     private static purchase p;
+    private purchase() {
+        // private 생성자로 외부에서 인스턴스 생성을 방지합니다.
+    }
     private Membership m;
     public static purchase getInstance() {
         if (p == null) {
@@ -17,7 +19,8 @@ public class purchase {
         p = null;
     }
 
-    String customeNum = "";
+    public static int[] customeNum = new int[6]; // 각각의 로또 번호를 저장할 배열
+
     public void purchaseQuestion(){
         Membership m = Membership.getInstance();
 
@@ -26,7 +29,7 @@ public class purchase {
         System.out.println("\n[INFO]" + m.name + "님, 안녕하세요."
                 + "\n로또를 구매하시겠습니까?"
                 + "\n[1] 예 \t [2] 아니요");
-
+        Membership.getInstance().isDataEntered = true;
         String answer = "";
         for(;;) {
             System.out.print("\n입력 : ");
@@ -53,81 +56,28 @@ public class purchase {
     public void letsLottery() {
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("\n[INFO] 1의 자리 숫자로 총 6개의 로또 번호를 입력해주세요.");
+        System.out.println("\n[INFO] 1에서 45까지의 수로 총 6개의 로또 번호를 입력해주세요.");
 
-        String num1 = "";
-        String num2 = "";
-        String num3 = "";
-        String num4 = "";
-        String num5 = "";
-        String num6 = "";
-
-        // 1의 자리 숫자가 아니면 무한 반복
-        for(;;) {
-            System.out.print("첫번째 번호 입력 : ");
-            num1 = sc.next();
-            if(num1.length() != 1) {
-                System.out.println("1의 자리 숫자만 입력해주세요. ( 0 ~ 9 )");
-            }else {
-                break;
+        // 각 숫자를 따로 저장
+        for (int i = 0; i < 6; i++) {
+            int num = 0;
+            for (;;) {
+                System.out.print((i+1) + "번째 번호 입력 : ");
+                num = Integer.parseInt(sc.next());
+                if (num < 1 || num > 45) {
+                    System.out.println("1부터 45까지의 숫자를 입력해주세요.");
+                } else {
+                    customeNum[i] = num; // 입력된 숫자를 배열에 저장
+                    break;
+                }
             }
         }
 
-        for(;;) {
-            System.out.print("두번째 번호 입력 : ");
-            num2 = sc.next();
-            if(num2.length() != 1) {
-                System.out.println("1의 자리 숫자만 입력해주세요. ( 0 ~ 9 )");
-            }else {
-                break;
-            }
+        System.out.print("\n[INFO] 입력하신 번호는");
+        for (int i = 0; i < 6; i++) {
+            System.out.print(" [" + customeNum[i] + "]");
         }
-
-        for(;;) {
-            System.out.print("세번째 번호 입력 : ");
-            num3 = sc.next();
-            if(num3.length() != 1) {
-                System.out.println("1의 자리 숫자만 입력해주세요. ( 0 ~ 9 )");
-            }else {
-                break;
-            }
-        }
-
-        for(;;) {
-            System.out.print("네번째 번호 입력 : ");
-            num4 = sc.next();
-            if(num4.length() != 1) {
-                System.out.println("1의 자리 숫자만 입력해주세요. ( 0 ~ 9 )");
-            }else {
-                break;
-            }
-        }
-
-        for(;;) {
-            System.out.print("네번째 번호 입력 : ");
-            num5 = sc.next();
-            if(num5.length() != 1) {
-                System.out.println("1의 자리 숫자만 입력해주세요. ( 0 ~ 9 )");
-            }else {
-                break;
-            }
-        }
-
-        for(;;) {
-            System.out.print("여섯번째 번호 입력 : ");
-            num6 = sc.next();
-            if(num6.length() != 1) {
-                System.out.println("1의 자리 숫자만 입력해주세요. ( 0 ~ 9 )");
-            }else {
-                break;
-            }
-        }
-
-
-        this.customeNum= num1 + num2 + num3 + num4 + num5 + num6;
-
-        System.out.print("\n[INFO] 입력하신 번호는" + "[" + num1 + "]" + "[" + num2 + "]" + "[" + num3 + "]"
-                + "[" + num4 + "]" + "[" + num5 + "]" + "[" + num6 + "]" + "입니다.");
+        System.out.println(" 입니다.");
 
         System.out.println("\n입력하신 번호로 로또 구매 진행하시겠습니까?"
                 + "\n[1] 예 \t [2] 아니요");

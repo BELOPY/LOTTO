@@ -1,19 +1,19 @@
 package rotto;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class ROTTORI {
     private static List<Integer> lottoNumbers;
+    public static boolean isDataEntered1 = false;
 
     public static void main(String[] args) {
         // generateLottoNumbers() 메서드를 호출하여 로또 번호를 생성
         lottoNumbers = generateLottoNumbers();
         lottorynum();
     }
+
+    int[] customerNums1 = purchase.customeNum;
 
     // 로또 번호를 생성하는 메서드
     public static List<Integer> generateLottoNumbers() {
@@ -56,16 +56,14 @@ public class ROTTORI {
         Loading l = new Loading();
         l.loading();
 
-        // random과 p.customerNum이 어디에서 정의되었는지 알 수 없으므로 수정 필요
-        // 예시로 "random"과 "p.customerNum" 대신 임의의 값으로 대체하겠습니다.
-        int random = 12345;
-        int customerNum = 54321;
+        int[] customerNums = p.customeNum; // 사용자의 로또 번호 배열
 
-        if (customerNum == random) {
-            System.out.println("[INFO] " + m.name + "님의 로또번호는 " + customerNum + "입니다.");
+        if (lottoNumbers.contains(Arrays.toString(p.customeNum))) { // 수정된 부분
+            System.out.println("[INFO] " + m.name + "님의 로또번호는 " + Arrays.toString(p.customeNum) + "입니다.");
             System.out.println("[INFO] 축하드립니다. 로또에 당첨됐습니다.");
+            isDataEntered1 = true;
         } else {
-            System.out.println("[INFO] " + m.name + "님의 로또번호는 " + customerNum + "입니다.");
+            System.out.println("[INFO] " + m.name + "님의 로또번호는 " + Arrays.toString(p.customeNum) + "입니다.");
             System.out.println("[INFO] 낙첨입니다. 다음 기회를 노려보세요.");
         }
         System.out.println("\n=================================================================\n");

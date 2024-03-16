@@ -4,7 +4,8 @@ public class main {
 
     static boolean purchaseCompleted = false;
     public static void main(String[] args) {
-        while (true) {
+        ROTTORI isDataEntered1 = new ROTTORI();
+        boolean dataEntered = isDataEntered1.isDataEntered1;
 
             // 환영인사 및 회원가입 진행 여부
             Membership m = Membership.getInstance();
@@ -31,10 +32,9 @@ public class main {
 
             // 당첨 결과를 출력한다.
             lt.result();
-            // 당첨되었다면 당첨 수령하기(구현중)
-            Winning w = Winning.getInstance();
-            w.Winning();
+            if (ROTTORI.isDataEntered1) { // isDataEntered1 변수에 직접 접근
+                Winning w = Winning.getInstance();
+                w.Winning();
+            }
         }
     }
-
-}

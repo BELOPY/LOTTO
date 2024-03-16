@@ -21,7 +21,7 @@ public class Membership {
     private Membership() {
     }
     purchase p = purchase.getInstance();
-    private boolean isDataEntered;
+    public static boolean isDataEntered;
 
 
     String name;        // 이름
@@ -58,18 +58,24 @@ public class Membership {
             answer = sc.next();
 
             if (answer.equals("1") || answer.equals("예")) {
-                personalData();
-                break;
+                if(!isDataEntered){
+                    personalData();
+                    break;
+                } else if (isDataEntered) {
+                    System.out.println("이미 가입된 회원입니다\n");
+                    System.out.println("회원 정보창으로 이동하여 로또를 구매하여주십시오");
+                    membershipGuide();
+                }
             } else if (answer.equals("2") || answer.equals("아니요")) {
                 System.out.println("\n[ERROR] 회원이 아니면 로또를 구매할 수 없습니다.");
                 System.exit(0);
             } else if (answer.equals("3") || answer.equals("회원 정보열람")) {
                 if (isDataEntered){ // 회원 정보가 있는지 검증함
                     persondata();
-                    System.out.println("[INFO]메인 메뉴로 돌아가시겠습니까?\n[1]예 [2]아니오");
+                    System.out.println("[INFO]로또를 구매하시겠습니까?\n[1]예 [2]아니오");
                     answer2 = sc.next();
                     if (answer2.equals("1") || answer2.equals("예")) {
-                        membershipGuide();
+                        p.purchaseQuestion();
                     } else if (answer2.equals("2") || answer2.equals("아니오")) {
                         System.exit(0);
                     }
