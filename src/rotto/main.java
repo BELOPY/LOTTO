@@ -36,6 +36,7 @@ public class main {
                 Winning w = Winning.getInstance();
                 w.Winning();
 
+
             }
         }
     }
