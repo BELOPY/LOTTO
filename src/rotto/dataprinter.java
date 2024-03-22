@@ -15,6 +15,7 @@ public class dataprinter {
         int mi = cal.get(Calendar.MINUTE);
         int ss = cal.get(Calendar.SECOND);
 
+
     }
 
 }
