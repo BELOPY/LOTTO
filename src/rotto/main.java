@@ -35,7 +35,6 @@ public class main {
             if (ROTTORI.isDataEntered1) { // isDataEntered1 변수에 직접 접근
                 Winning w = Winning.getInstance();
                 w.Winning();
-
             }
         }
     }
